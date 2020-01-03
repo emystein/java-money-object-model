@@ -14,6 +14,12 @@ public class ConversionRate {
     @EqualsAndHashCode.Exclude
     private final Double rate;
 
+    public boolean canConvert(String sourceCurrency, String targetCurrency, LocalDate conversionDate) {
+        return this.sourceCurrency.equals(sourceCurrency) &&
+                this.targetCurrency.equals(targetCurrency) &&
+                this.conversionDate.equals(conversionDate);
+    }
+
     public Money convert(Money money) {
         var convertedAmount =  money.getAmount() * rate;
         return new Money(convertedAmount, targetCurrency);

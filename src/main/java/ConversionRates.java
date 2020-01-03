@@ -10,9 +10,7 @@ public class ConversionRates {
 
     public Money convert(Money money, String targetCurrency, LocalDate conversionDate) {
         var conversionRate = rates.stream()
-                .filter(r -> r.getSourceCurrency().equals(money.getCurrency()) &&
-                        r.getTargetCurrency().equals(targetCurrency) &&
-                        r.getConversionDate().equals(conversionDate))
+                .filter(rate -> rate.canConvert(money.getCurrency(), targetCurrency, conversionDate))
                 .findFirst().get();
 
         return conversionRate.convert(money);
