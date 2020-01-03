@@ -40,4 +40,17 @@ public class CurrencyConversionTest {
 
         assertThrows(NoSuchElementException.class, () -> rates.convert(ars62, "NOTFOUND", LocalDate.now()));
     }
+
+    @Test
+    void givenTwoConversionRatesForTheSameTargetCurrencyAndDateWhenAddTheConversionRatesThenTheSecondConversionRateShouldOverrideTheFirstOne() {
+        var ars63 = new Money(62.0, "ARS");
+
+        var rates = new ConversionRates();
+
+        rates.addRate("ARS", "USD", LocalDate.now(), 1 / 62.0);
+        rates.addRate("ARS", "USD", LocalDate.now(), 1 / 63.0);
+
+        assertThat(rates.convert(ars63, "USD", LocalDate.now()).getAmount()).isEqualTo(1.0);
+    }
+
 }
