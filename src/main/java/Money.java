@@ -10,4 +10,8 @@ public class Money {
     public Money plus(Money other) {
         return new Money(this.amount + other.amount, currency);
     }
+
+    public Money multiplyBy(int factor) {
+        return new Money(this.amount * factor, currency);
+    }
 }

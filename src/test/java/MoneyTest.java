@@ -12,4 +12,13 @@ public class MoneyTest {
 
         assertThat(ars35.getAmount()).isEqualTo(35.00);
     }
+
+    @Test
+    void givenAnAmountWhenMultiplyTheAmountByAFactorThemThenItShouldReturnANewAmountWithTheProduct() {
+        Money ars2 = new Money(2.00, "ARS");
+
+        var ars6 = ars2.multiplyBy(3);
+
+        assertThat(ars6.getAmount()).isEqualTo(6.00);
+    }
 }
