@@ -8,7 +8,7 @@ import java.util.Map;
 public class ConversionRates {
     private Map<String, Multimap<String, ConversionRate>> rates = new HashMap<>();
 
-    public void addRate(LocalDate conversionDate, String sourceCurrency, Double rate, String targetCurrency) {
+    public void addRate(String sourceCurrency, String targetCurrency, LocalDate conversionDate, Double rate) {
         rates.putIfAbsent(sourceCurrency, ArrayListMultimap.create());
 
         var targetConversions = rates.get(sourceCurrency);

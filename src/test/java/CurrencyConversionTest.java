@@ -11,7 +11,7 @@ public class CurrencyConversionTest {
 
         var rates = new ConversionRates();
 
-        rates.addRate(LocalDate.now(), "ARS",  1 / 63.0, "USD");
+        rates.addRate("ARS", "USD", LocalDate.now(), 1 / 63.0);
 
         assertThat(rates.convert(ars63, "USD", LocalDate.now()).getAmount()).isEqualTo(1.0);
     }
@@ -22,8 +22,8 @@ public class CurrencyConversionTest {
 
         var rates = new ConversionRates();
 
-        rates.addRate(LocalDate.now().minusDays(1), "ARS",  1 / 62.0, "USD");
-        rates.addRate(LocalDate.now(), "ARS",  1 / 63.0, "USD");
+        rates.addRate("ARS", "USD", LocalDate.now().minusDays(1), 1 / 62.0);
+        rates.addRate("ARS", "USD", LocalDate.now(), 1 / 63.0);
 
         assertThat(rates.convert(ars62, "USD", LocalDate.now().minusDays(1)).getAmount()).isEqualTo(1.0);
     }
