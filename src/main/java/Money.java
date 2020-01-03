@@ -8,10 +8,10 @@ public class Money {
     private final String currency;
 
     public Money plus(Money other) {
-        return new Money(this.amount + other.amount, currency);
+        return new Money(amount + other.amount, currency);
     }
 
     public Money multiplyBy(int factor) {
-        return new Money(this.amount * factor, currency);
+        return new Money(amount * factor, currency);
     }
 }
