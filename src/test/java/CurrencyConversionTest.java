@@ -32,6 +32,15 @@ public class CurrencyConversionTest {
     }
 
     @Test
+    void givenEmptyConversionRatesWhenConvertToCurrencyThenItShouldThrowAnException() {
+        var ars62 = new Money(62.0, "ARS");
+
+        var rates = new ConversionRates();
+
+        assertThrows(Exception.class, () -> rates.convert(ars62, "NOTFOUND", LocalDate.now()));
+    }
+
+    @Test
     void givenACurrencyWhenConvertToAnUnknownCurrencyThenItShouldThrowAnException() {
         var ars62 = new Money(62.0, "ARS");
 
