@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Getter
 @EqualsAndHashCode
 public class ConversionRate {
+    private final String sourceCurrency;
     private final String targetCurrency;
     private final LocalDate conversionDate;
     @EqualsAndHashCode.Exclude

@@ -1,27 +1,18 @@
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ConversionRates {
-    private Map<String, Set<ConversionRate>> rates = new HashMap<>();
+    private Set<ConversionRate> rates = new LinkedHashSet<>();
 
     public void addRate(String sourceCurrency, String targetCurrency, LocalDate conversionDate, Double rate) {
-        rates.putIfAbsent(sourceCurrency, new HashSet<>());
-
-        var targetConversions = rates.get(sourceCurrency);
-
-        targetConversions.add(new ConversionRate(targetCurrency, conversionDate, rate));
-
-        rates.put(sourceCurrency, targetConversions);
+        rates.add(new ConversionRate(sourceCurrency, targetCurrency, conversionDate, rate));
     }
 
     public Money convert(Money money, String targetCurrency, LocalDate conversionDate) {
-        var conversionRates = rates.get(money.getCurrency());
-
-        var conversionRate = conversionRates.stream()
-                .filter(r -> r.getTargetCurrency().equals(targetCurrency) && r.getConversionDate().equals(conversionDate))
+        var conversionRate = rates.stream()
+                .filter(r -> r.getSourceCurrency().equals(money.getCurrency()) &&
+                        r.getTargetCurrency().equals(targetCurrency) &&
+                        r.getConversionDate().equals(conversionDate))
                 .findFirst().get();
 
         return conversionRate.convert(money);
