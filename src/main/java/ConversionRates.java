@@ -13,7 +13,7 @@ public class ConversionRates {
 
         var targetConversions = rates.get(sourceCurrency);
 
-        targetConversions.put(targetCurrency, new ConversionRate(conversionDate, rate));
+        targetConversions.put(targetCurrency, new ConversionRate(targetCurrency, conversionDate, rate));
 
         rates.put(sourceCurrency, targetConversions);
     }
@@ -21,10 +21,10 @@ public class ConversionRates {
     public Money convert(Money money, String targetCurrency, LocalDate conversionDate) {
         var conversionRates = rates.get(money.getCurrency()).get(targetCurrency);
 
-        var conversionRate = conversionRates.stream().filter(r -> r.getConversionDate().equals(conversionDate)).findFirst().get();
+        var conversionRate = conversionRates.stream()
+                .filter(r -> r.getTargetCurrency().equals(targetCurrency) && r.getConversionDate().equals(conversionDate))
+                .findFirst().get();
 
-        var convertedAmount =  money.getAmount() * conversionRate.getRate();
-
-        return new Money(convertedAmount, targetCurrency);
+        return conversionRate.convert(money);
     }
 }
