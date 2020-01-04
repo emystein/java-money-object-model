@@ -8,7 +8,7 @@ public class TaxConversion {
     private final ConversionRates conversionRates;
 
     public Money convert(Collection<PriceTax> priceTaxes, String targetCurrency) {
-        var taxSum = priceTaxes.stream().reduce(PriceTax::new).get();
+        var taxSum = priceTaxes.stream().reduce(PriceTax::merge).get();
         return conversionRates.convert(taxSum.getTax(), targetCurrency, yesterday());
     }
 
