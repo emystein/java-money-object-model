@@ -1,8 +1,10 @@
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class Money {
     private final Double amount;
     private final String currency;

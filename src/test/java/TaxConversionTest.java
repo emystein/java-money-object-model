@@ -9,8 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TaxConversionTest {
     @Test
     void convertTaxes() {
-        var priceTax1 = new PriceTax(new Money(100.0, "ARS"), 21.0);
-        var priceTax2 = new PriceTax(new Money(200.0, "ARS"), 42.0);
+        var priceTax1 = new PriceTax(new Money(100.0, "ARS"), new Money(21.0, "ARS"));
+        var priceTax2 = new PriceTax(new Money(200.0, "ARS"), new Money(42.0, "ARS"));
         var priceTaxes = Lists.newArrayList(priceTax1, priceTax2);
 
         var conversionRates = new ConversionRates();

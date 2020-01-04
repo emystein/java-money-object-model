@@ -8,9 +8,8 @@ public class TaxConversion {
     private final ConversionRates conversionRates;
 
     public Money convert(Collection<PriceTax> priceTaxes, String targetCurrency) {
-        var sourceCurrency = priceTaxes.stream().findFirst().get().getPrice().getCurrency();
-        var taxSum = new Money(priceTaxes.stream().mapToDouble(PriceTax::getTax).sum(), sourceCurrency);
-        return conversionRates.convert(taxSum, targetCurrency, yesterday());
+        var taxSum = priceTaxes.stream().reduce(PriceTax::new).get();
+        return conversionRates.convert(taxSum.getTax(), targetCurrency, yesterday());
     }
 
     private LocalDate yesterday() {
